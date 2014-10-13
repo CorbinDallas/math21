@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!doctype html>
 <!-- saved from url=(0051)http://www.brainjar.com/js/blackjack/blackjack.html -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,49 +7,49 @@
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <script src="js/main.js"></script>
 </head>
-<body cz-shortcut-listen="true">
-
+<body>
+<div id="title" class="title"></div>
 <!-- Dealer's area. -->
 
 <div id="dealer" class="playingField">
-    <div class="textBox name">Dealer</div>
-    <div id="dealerScore" class="textBox">&nbsp;</div>
+    <span class="textBox name">Dealer</span>
+    <span id="dealerScore" class="textBox">&nbsp;</span>
     <div id="dealerCards" class="cardArea"></div>
 </div>
 
 <!-- Main player's area. -->
 
 <div id="player0" class="playingField">
-    <div class="textBox name">Player</div>
-    <div id="player0Score" class="textBox">&nbsp;</div>
-    <div id="player0Bet" class="textBox dollars">&nbsp;</div>
-    <div id="player0Result" class="textBox result">&nbsp;</div>
+    <span class="textBox name">Player</span>
+    <span id="player0Score" class="textBox">&nbsp;</span>
+    <span id="player0Bet" class="textBox dollars">&nbsp;</span>
+    <span id="player0Result" class="textBox result">&nbsp;</span>
     <div id="player0Cards" class="cardArea"></div>
 </div>
 
 <!-- Areas for the player's split hands. -->
 
 <div id="player1" class="playingField" style="display:none;">
-    <div class="textBox name">Player</div>
-    <div id="player1Score" class="textBox">&nbsp;</div>
-    <div id="player1Bet" class="textBox dollars">&nbsp;</div>
-    <div id="player1Result" class="textBox result">&nbsp;</div>
+    <span class="textBox name">Player</span>
+    <span id="player1Score" class="textBox">&nbsp;</span>
+    <span id="player1Bet" class="textBox dollars">&nbsp;</span>
+    <span id="player1Result" class="textBox result">&nbsp;</span>
     <div id="player1Cards" class="cardArea"></div>
 </div>
 
 <div id="player2" class="playingField" style="display:none;">
-    <div class="textBox name">Player</div>
-    <div id="player2Score" class="textBox">&nbsp;</div>
-    <div id="player2Bet" class="textBox dollars">&nbsp;</div>
-    <div id="player2Result" class="textBox result">&nbsp;</div>
+    <span class="textBox name">Player</span>
+    <span id="player2Score" class="textBox">&nbsp;</span>
+    <span id="player2Bet" class="textBox dollars">&nbsp;</span>
+    <span id="player2Result" class="textBox result">&nbsp;</span>
     <div id="player2Cards" class="cardArea"></div>
 </div>
 
 <div id="player3" class="playingField" style="display:none;">
-    <div class="textBox name">Player</div>
-    <div id="player3Score" class="textBox">&nbsp;</div>
-    <div id="player3Bet" class="textBox dollars">&nbsp;</div>
-    <div id="player3Result" class="textBox result">&nbsp;</div>
+    <span class="textBox name">Player</span>
+    <span id="player3Score" class="textBox">&nbsp;</span>
+    <span id="player3Bet" class="textBox dollars">&nbsp;</span>
+    <span id="player3Result" class="textBox result">&nbsp;</span>
     <div id="player3Cards" class="cardArea"></div>
 </div>
 
@@ -57,18 +57,19 @@
 
 <form id="controls" action="">
     <div id="controlsArea">
-        <div id="credits" class="textBox dollars">Credits: $1000.00</div>
-        <div id="default" class="textBox dollars">Default Bet: $10.00</div>
+        <span id="credits" class="textBox dollars">Credits: $1000.00</span>
+        <span id="default" class="textBox dollars">Default Bet: $10.00</span>
+        <br>
         <input id="deal" class="button" type="reset" value="Deal" onclick="startRound();return false;">
-        <input id="decrease" class="button" type="reset" value="Decrease Bet" onclick="changeBet(-5);return false;">
-        <input id="increase" class="button" type="reset" value="Increase Bet" onclick="changeBet(+5);return false;">
+        <input id="hit" class="button" type="reset" value="Hit" onclick="playerHit();return false;" disabled="disabled">
+        <input id="stand" class="button" type="reset" value="Stand" onclick="playerStand();return false;" disabled="disabled">
         <br>
         <input id="split" class="button" type="reset" value="Split" onclick="playerSplit();return false;" disabled="disabled">
         <input id="double" class="button" type="reset" value="Double" onclick="playerDouble();return false;" disabled="disabled">
         <input id="insurance" class="button" type="reset" value="Insurance" onclick="offerInsurance();return false;" disabled="disabled">
         <br>
-        <input id="hit" class="button" type="reset" value="Hit" onclick="playerHit();return false;" disabled="disabled">
-        <input id="stand" class="button" type="reset" value="Stand" onclick="playerStand();return false;" disabled="disabled">
+        <input id="decrease" class="button" type="reset" value="Decrease Bet" onclick="changeBet(-5);return false;">
+        <input id="increase" class="button" type="reset" value="Increase Bet" onclick="changeBet(+5);return false;">
         <input id="rules" class="button" type="reset" value="Show Rules" onclick="toggleRules();return false;">
         <br>
         <input id="options" class="button" type="reset" value="Options" onclick="showOptions();return false;">
@@ -76,89 +77,102 @@
 </form>
 
 <div id="optionsDialog">
-    <span class="closeBox" onclick="closeOptions();">&#x2573;</span>
-    <table>
-        <tr>
-            <td>
-                Shuffle On Deal
-            </td>
-            <td>
-                <input id="reshuffleOnDeal" type="checkbox">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Number of Decks
-            </td>
-            <td>
-                <select id="numberOfDecks">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="4">4</option>
-                    <option value="6">6</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Target Number
-            </td>
-            <td>
-                <input id="targetNumber" size="5">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Ace Value
-            </td>
-            <td>
-                <select id="aceValue">
-                    <option value='standard'>1 or 11</option>
-                    <option value='kids'>1</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Show Split
-            </td>
-            <td>
-                <input id="showSplit" type="checkbox">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Show Double
-            </td>
-            <td>
-                <input id="showDouble" type="checkbox">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Show Insurance
-            </td>
-            <td>
-                <input id="showInsurance" type="checkbox">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Show Betting
-            </td>
-            <td>
-                <input id="showBetting" type="checkbox">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Show Card Value Count
-            </td>
-            <td>
-                <input id="showCount" type="checkbox">
-            </td>
-        </tr>
-    </table>
+    <div>
+        <span class="closeBox" onclick="closeOptions();">&#x2573;</span>
+        <table>
+            <tr>
+                <td>
+                    Shuffle On Deal
+                </td>
+                <td>
+                    <input id="reshuffleOnDeal" type="checkbox">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Number of Decks
+                </td>
+                <td>
+                    <span id="numberOfDecksCount" class="count"></span>
+                    <input 
+                        type="range"
+                        id="numberOfDecks"
+                        min="1"
+                        max="6"
+                        step="1"
+                        oninput="saveOptions();"
+                    >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Target Number
+                </td>
+                <td>
+                    <span id="targetNumberCount" class="count"></span>
+                    <input
+                        type="range"
+                        id="targetNumber"
+                        min="15"
+                        max="45"
+                        step="1"
+                        oninput="saveOptions();"
+                    >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Ace Value
+                </td>
+                <td>
+                    <select id="aceValue">
+                        <option value='standard'>1 or 11</option>
+                        <option value='kids'>1</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Show Split
+                </td>
+                <td>
+                    <input id="showSplit" type="checkbox">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Show Double
+                </td>
+                <td>
+                    <input id="showDouble" type="checkbox">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Show Insurance
+                </td>
+                <td>
+                    <input id="showInsurance" type="checkbox">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Show Betting
+                </td>
+                <td>
+                    <input id="showBetting" type="checkbox">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Show Card Value Count
+                </td>
+                <td>
+                    <input id="showCount" type="checkbox">
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 <!-- Rules text. -->
@@ -310,6 +324,7 @@
         </ul>
     </div>
 </div>
-
+<audio id="winAudio" src="audio/win.mp3"></audio>
+<audio id="loseAudio" src="audio/lose.mp3"></audio>
 
 </body></html>

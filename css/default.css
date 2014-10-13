@@ -36,7 +36,7 @@ pre {
 
 td, th {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 10pt;
+  font-size: 1.5em;
   text-align: left;
   vertical-align: top;
 }
@@ -50,6 +50,12 @@ ul {
   list-style-type: square;
 }
 
+#options {
+  position: fixed;
+  right: 0;
+  top: 0;
+  /*background: url('gear image')*/
+}
 #demoBox {
   border-color: #000000;
   border-style: solid;
@@ -107,10 +113,19 @@ body {
     margin-top: 1em;
     text-align: center;
 }
+.count {
+  display: inline-block;
+  width: 30px;
+}
 #rulesBox div {
     height: 100%;
     overflow-y: scroll;
     padding: 10px;
+}
+#optionsDialog div {
+  margin:auto;
+  width: 75%;
+  padding-top: 10%;
 }
 #optionsDialog, #rulesBox {
     visibility:hidden;
@@ -154,6 +169,10 @@ body {
     padding: 0px;
 }
 
+.playingField span, #credits, #default {
+    display: inline-block;
+}
+
 .playingField {
     border-color:  #208020 #60c060 #60c060 #208020;
     border-style: solid;
@@ -180,9 +199,7 @@ body {
     border-color:  #006000 #90f090 #90f090 #006000;
     border-style: solid;
     border-width: 1px;
-    clear: right;
     color: #000000;
-    float: right;
     font-family: "Times New Roman", serif;
     font-size: 11pt;
     font-weight: bold;
@@ -281,3 +298,19 @@ input.button {
 .spotC3 { position: absolute; left: 2.50em; top: 2.0em; }
 .spotC4 { position: absolute; left: 2.50em; top: 2.5em; }
 .spotC5 { position: absolute; left: 2.50em; top: 3.5em; }
+
+.title {
+    font-size: 2em;
+    color: #ffffc0;
+    border-color: #808080 #000000 #000000 #808080;
+    border-width: 1px;
+    border-style: solid;
+    margin: 23px 10px 10px 10px;
+}
+
+/* button images */
+
+#options {
+  /*background: url('http://www.versusbattle.com/wp-content/uploads/2013/03/darth-vader.jpg');*/
+}
+

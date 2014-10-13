@@ -29,13 +29,14 @@ function Card(rank, suit) {
 
 // custom part for math21
 
+// These are the defaults
 var options = {
     //Reshuffle on deal
     reshuffleOnDeal: true,
     //No. of decks
-    numberOfDecks: 4,
+    numberOfDecks: 2,
     //Target number (Default: 21)
-    targetNumber: 25,
+    targetNumber: 21,
     //ACE value 1, 11 or best
     aceValue: 'standard',
     //Hide/Show: split, double, insurance, total
@@ -67,6 +68,14 @@ function bindInfo(g, keyName){
         }
     };
 }
+function showCounts(){
+    var y = ['numberOfDecks', 'targetNumber'];
+    for(var x = 0; x < y.length; x++){
+        var i = gi(y[x]);
+        var t = gi(y[x] + 'Count');
+        t.innerHTML = i.value;
+    }
+}
 function showOptions() {
     getOptionsFromLocalStorage();
     gi('optionsDialog').style.visibility = 'visible';
@@ -81,15 +90,31 @@ function showOptions() {
             g.value = options[o[x]];
         }
     }
-    showOptionInfo();
+    showCounts();
+    setTitle();
 }
 function closeOptions(){
     gi('optionsDialog').style.visibility = 'hidden';
+    endRound();
+    startRound();
 }
 function updateCtrlVisibility(){
     // maybe hide some controls
     function showOrHide(b){
         return b ? 'visible' : 'hidden';
+    }
+    function showOrHideColor(id, b){
+        var e = gi(id);
+        if(b){
+            e.style.color = 'black';
+        }else{
+            // this was the default background color
+            // that was difficult to locate in the dom
+            e.style.color = '#ffffc0';
+        }
+        e.onclick = function(){
+            e.style.color = 'black';
+        };
     }
     gi('split').style.visibility = showOrHide(options.showSplit);
     gi('double').style.visibility = showOrHide(options.showDouble);
@@ -100,9 +125,16 @@ function updateCtrlVisibility(){
     gi('decrease').style.visibility = showOrHide(options.showBetting);
     gi('player0Bet').style.visibility = showOrHide(options.showBetting);
     gi('player1Bet').style.visibility = showOrHide(options.showBetting);
-    gi('player0Score').style.visibility = showOrHide(options.showCount);
-    gi('player1Score').style.visibility = showOrHide(options.showCount);
-    gi('dealerScore').style.visibility = showOrHide(options.showCount);
+    
+    showOrHideColor('player0Score', options.showCount);
+    showOrHideColor('player1Score', options.showCount);
+    showOrHideColor('player2Score', options.showCount);
+    showOrHideColor('dealerScore', options.showCount);
+}
+function setTitle(){
+    var t = gi('title');
+        t.innerHTML = 'Playing ' + options.targetNumber +
+         ' Dealer stands at ' + (parseInt(options.targetNumber,10) - 4);
 }
 function saveOptions(){
     var o = Object.keys(options);
@@ -113,7 +145,8 @@ function saveOptions(){
         localStorage.setItem(o[x], v);
     }
     updateCtrlVisibility();
-    showOptionInfo();
+    showCounts();
+    setTitle();
 }
 function getOptionsFromLocalStorage(){
     var o = Object.keys(options);
@@ -407,7 +440,9 @@ window.onload = initGame;
 function initGame() {
 
     var i;
-
+    getOptionsFromLocalStorage();
+    updateCtrlVisibility();
+    setTitle();
     // Locate credits and default bet text nodes on the page.
 
     creditsTextNode = document.getElementById("credits").firstChild;
@@ -945,7 +980,7 @@ function playDealer() {
 
     // If the dealer's total is less than 17, set up to deal another card.
 
-    if (d < options.targetNumber-3) {
+    if (d < options.targetNumber-4) {
         setTimeout(dealToDealer, dealTimeDelay);
         return;
     }
@@ -1000,6 +1035,7 @@ function endRound() {
                           d > options.targetNumber) ||
                            (p <= options.targetNumber && p > d)) {
             player[i].resultTextNode.nodeValue = "Player Wins";
+            gi('winAudio').play();
             tmp = 2 * player[i].bet;
 
             // Blackjack pays 3 to 2.
@@ -1013,6 +1049,7 @@ function endRound() {
         else if ((dealer.blackjack && !player[i].blackjack) ||
                          p > options.targetNumber || p < d) {
             player[i].resultTextNode.nodeValue = "Player Loses";
+            gi('loseAudio').play();
             addClassName(player[i].betTextNode.parentNode, "lost");
         }
         else {
