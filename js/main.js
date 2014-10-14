@@ -1,11 +1,5 @@
 
 //*****************************************************************************
-// Do not remove this notice.
-//
-// Copyright 2001-2004 by Mike Hall.
-// See http://www.brainjar.com for terms of use.
-//*****************************************************************************
-
 //=============================================================================
 // Card and Stack Objects
 //=============================================================================
@@ -96,7 +90,7 @@ function showOptions() {
 function closeOptions(){
     gi('optionsDialog').style.visibility = 'hidden';
     endRound();
-    startRound();
+    startRound(); 
 }
 function updateCtrlVisibility(){
     // maybe hide some controls

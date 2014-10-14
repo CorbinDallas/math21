@@ -54,6 +54,7 @@ ul {
   position: fixed;
   right: 0;
   top: 0;
+  background: url("../img/settings.jpg");
   /*background: url('gear image')*/
 }
 #demoBox {
@@ -309,8 +310,4 @@ input.button {
 }
 
 /* button images */
-
-#options {
-  /*background: url('http://www.versusbattle.com/wp-content/uploads/2013/03/darth-vader.jpg');*/
-}
 
