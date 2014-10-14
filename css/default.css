@@ -54,8 +54,12 @@ ul {
   position: fixed;
   right: 0;
   top: 0;
-  background: url("../img/settings.jpg");
-  /*background: url('gear image')*/
+  background: url("../img/settings.png");
+  height: 4em;
+  width: 4em;
+  background-size: 100% 100%;
+  border: none;
+  cursor: pointer;
 }
 #demoBox {
   border-color: #000000;

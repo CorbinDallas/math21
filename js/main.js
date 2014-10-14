@@ -677,6 +677,8 @@ function startRound() {
     credits -= player[0].bet;
     updateBetDisplay(0);
 
+    updateCtrlVisibility();
+
     // Start dealing the cards.
     dealRoundCounter = 1;
     dealRound();
