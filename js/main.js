@@ -65,6 +65,7 @@ function bindInfo(g, keyName){
 function showOptions() {
     getOptionsFromLocalStorage();
     var o = Object.keys(options);
+    var procs = [];
     for(var x = 0; x < o.length; x++){
         var g = gi(o[x]);
         bindInfo(g, o[x]);
@@ -73,13 +74,19 @@ function showOptions() {
             var i = gi(g.id + '0').value === options[o[x]];
             gi(g.id + (i ? '0' : '1')).checked = true;
         }else if(g.type === 'range'){
-            $('#optionsDialog').page();
-            $('#' + g.id).val(options[o[x]]);
-            $('#' + g.id).slider('refresh');
+            (function(g, x){
+                procs.push(function(){
+                    $('#' + g.id).val(options[o[x]]);
+                    $('#' + g.id).slider('refresh');
+                });
+            })(g, x);
         }else{
             g.value = options[o[x]];
         }
     }
+
+    $('#optionsDialog').page();
+    procs.forEach(function(i){ i(); });
     setTitle();
 }
 function closeOptions(){
