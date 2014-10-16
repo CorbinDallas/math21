@@ -2,6 +2,10 @@
 * Defines default styles for site pages.                                      *
 ******************************************************************************/
 
+.ui-page {
+  padding: 10px;
+}
+
 a {
   text-decoration: none;
 }
