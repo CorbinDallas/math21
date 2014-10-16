@@ -2,184 +2,124 @@
 <!-- saved from url=(0051)http://www.brainjar.com/js/blackjack/blackjack.html -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>BrainJar.com: Blackjack</title>
-
+<title>Math 21</title>
+<link href="css/jquery.mobile-1.4.4.css" rel="stylesheet" type="text/css">
+<link href="css/jquery.mobile.external-png-1.4.4.css" rel="stylesheet" type="text/css">
+<link href="css/jquery.mobile.inline-png-1.4.4.css" rel="stylesheet" type="text/css">
+<link href="css/jquery.mobile.icons-1.4.4.css" rel="stylesheet" type="text/css">
+<link href="css/jquery.mobile.structure-1.4.4.css" rel="stylesheet" type="text/css">
+<link href="css/math21.css" rel="stylesheet" type="text/css">
 <link href="css/default.css" rel="stylesheet" type="text/css">
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery.mobile-1.4.4.js"></script>
 <script src="js/main.js"></script>
 </head>
 <body>
-<div id="title" class="title"></div>
-<!-- Dealer's area. -->
 
-<div id="dealer" class="playingField">
-    <span class="textBox name">Dealer</span>
-    <span id="dealerScore" class="textBox">&nbsp;</span>
-    <div id="dealerCards" class="cardArea"></div>
-</div>
 
-<!-- Main player's area. -->
+<div data-role="page" id="game">
 
-<div id="player0" class="playingField">
-    <span class="textBox name">Player</span>
-    <span id="player0Score" class="textBox">&nbsp;</span>
-    <span id="player0Bet" class="textBox dollars">&nbsp;</span>
-    <span id="player0Result" class="textBox result">&nbsp;</span>
-    <div id="player0Cards" class="cardArea"></div>
-</div>
+    <div id="title" class="title"></div>
+    <!-- Dealer's area. -->
 
-<!-- Areas for the player's split hands. -->
+    <div id="dealer" class="playingField">
+        <span class="textBox name">Dealer</span>
+        <span id="dealerScore" class="textBox">&nbsp;</span>
+        <div id="dealerCards" class="cardArea"></div>
+    </div>
 
-<div id="player1" class="playingField" style="display:none;">
-    <span class="textBox name">Player</span>
-    <span id="player1Score" class="textBox">&nbsp;</span>
-    <span id="player1Bet" class="textBox dollars">&nbsp;</span>
-    <span id="player1Result" class="textBox result">&nbsp;</span>
-    <div id="player1Cards" class="cardArea"></div>
-</div>
+    <!-- Main player's area. -->
 
-<div id="player2" class="playingField" style="display:none;">
-    <span class="textBox name">Player</span>
-    <span id="player2Score" class="textBox">&nbsp;</span>
-    <span id="player2Bet" class="textBox dollars">&nbsp;</span>
-    <span id="player2Result" class="textBox result">&nbsp;</span>
-    <div id="player2Cards" class="cardArea"></div>
-</div>
+    <div id="player0" class="playingField">
+        <span class="textBox name">Player</span>
+        <span id="player0Score" class="textBox">&nbsp;</span>
+        <span id="player0Bet" class="textBox dollars">&nbsp;</span>
+        <span id="player0Result" class="textBox result">&nbsp;</span>
+        <div id="player0Cards" class="cardArea"></div>
+    </div>
 
-<div id="player3" class="playingField" style="display:none;">
-    <span class="textBox name">Player</span>
-    <span id="player3Score" class="textBox">&nbsp;</span>
-    <span id="player3Bet" class="textBox dollars">&nbsp;</span>
-    <span id="player3Result" class="textBox result">&nbsp;</span>
-    <div id="player3Cards" class="cardArea"></div>
-</div>
+    <!-- Areas for the player's split hands. -->
 
-<!-- Game buttons. -->
+    <div id="player1" class="playingField" style="display:none;">
+        <span class="textBox name">Player</span>
+        <span id="player1Score" class="textBox">&nbsp;</span>
+        <span id="player1Bet" class="textBox dollars">&nbsp;</span>
+        <span id="player1Result" class="textBox result">&nbsp;</span>
+        <div id="player1Cards" class="cardArea"></div>
+    </div>
 
-<form id="controls" action="">
+    <div id="player2" class="playingField" style="display:none;">
+        <span class="textBox name">Player</span>
+        <span id="player2Score" class="textBox">&nbsp;</span>
+        <span id="player2Bet" class="textBox dollars">&nbsp;</span>
+        <span id="player2Result" class="textBox result">&nbsp;</span>
+        <div id="player2Cards" class="cardArea"></div>
+    </div>
+
+    <div id="player3" class="playingField" style="display:none;">
+        <span class="textBox name">Player</span>
+        <span id="player3Score" class="textBox">&nbsp;</span>
+        <span id="player3Bet" class="textBox dollars">&nbsp;</span>
+        <span id="player3Result" class="textBox result">&nbsp;</span>
+        <div id="player3Cards" class="cardArea"></div>
+    </div>
+
+    <!-- Game buttons. -->
+<span id="credits" class="textBox dollars">Credits: $1000.00</span>
+<span id="default" class="textBox dollars">Default Bet: $10.00</span>
+
     <div id="controlsArea">
-        <span id="credits" class="textBox dollars">Credits: $1000.00</span>
-        <span id="default" class="textBox dollars">Default Bet: $10.00</span>
-        <br>
-        <input id="deal" class="button" type="reset" value="Deal" onclick="startRound();return false;">
-        <input id="hit" class="button" type="reset" value="Hit" onclick="playerHit();return false;" disabled="disabled">
-        <input id="stand" class="button" type="reset" value="Stand" onclick="playerStand();return false;" disabled="disabled">
-        <br>
-        <input id="split" class="button" type="reset" value="Split" onclick="playerSplit();return false;" disabled="disabled">
-        <input id="double" class="button" type="reset" value="Double" onclick="playerDouble();return false;" disabled="disabled">
-        <input id="insurance" class="button" type="reset" value="Insurance" onclick="offerInsurance();return false;" disabled="disabled">
-        <br>
-        <input id="decrease" class="button" type="reset" value="Decrease Bet" onclick="changeBet(-5);return false;">
-        <input id="increase" class="button" type="reset" value="Increase Bet" onclick="changeBet(+5);return false;">
-        <input id="rules" class="button" type="reset" value="Show Rules" onclick="toggleRules();return false;">
-        <br>
-        <input id="options" class="button" type="reset" value="" onclick="showOptions();return false;">
-    </div>
-</form>
+        
 
-<div id="optionsDialog">
-    <div>
-        <span class="closeBox" onclick="closeOptions();">&#x2573;</span>
-        <table>
-            <tr>
-                <td>
-                    Shuffle On Deal
-                </td>
-                <td>
-                    <input id="reshuffleOnDeal" type="checkbox">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Number of Decks
-                </td>
-                <td>
-                    <span id="numberOfDecksCount" class="count"></span>
-                    <input 
-                        type="range"
-                        id="numberOfDecks"
-                        min="1"
-                        max="6"
-                        step="1"
-                        oninput="saveOptions();"
-                    >
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Target Number
-                </td>
-                <td>
-                    <span id="targetNumberCount" class="count"></span>
-                    <input
-                        type="range"
-                        id="targetNumber"
-                        min="15"
-                        max="45"
-                        step="1"
-                        oninput="saveOptions();"
-                    >
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Ace Value
-                </td>
-                <td>
-                    <select id="aceValue">
-                        <option value='standard'>1 or 11</option>
-                        <option value='kids'>1</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Show Split
-                </td>
-                <td>
-                    <input id="showSplit" type="checkbox">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Show Double
-                </td>
-                <td>
-                    <input id="showDouble" type="checkbox">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Show Insurance
-                </td>
-                <td>
-                    <input id="showInsurance" type="checkbox">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Show Betting
-                </td>
-                <td>
-                    <input id="showBetting" type="checkbox">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Show Card Value Count
-                </td>
-                <td>
-                    <input id="showCount" type="checkbox">
-                </td>
-            </tr>
-        </table>
+        <button id="deal" data-role="button" onclick="startRound();">
+            Deal
+        </button>
+
+        <button id="hit" data-role="button" onclick="playerHit();">
+            Hit
+        </button>
+
+        <button id="stand" onclick="playerStand();">
+            Stand
+        </button>
+
+        <button id="split" onclick="playerSplit();">
+            Split
+        </button>
+
+        <button id="double" onclick="playerDouble();">
+            Double
+        </button>
+
+        <button id="insurance" onclick="offerInsurance();">
+            Insurance
+        </button>
+
+        <button id="decrease" onclick="changeBet(-5);">
+            Decrease Bet
+        </button>
+
+        <button id="increase" onclick="changeBet(+5);">
+            Increase Bet
+        </button>
+
+        <button id="rules" onclick="window.location = '#rulesBox';">
+            Show Rules
+        </button>
+
+        <button id="options" onclick="window.location = '#optionsDialog';">
+            Options
+        </button>
     </div>
+    <audio id="winAudio" src="audio/win.mp3"></audio>
+    <audio id="loseAudio" src="audio/lose.mp3"></audio>
 </div>
 
-<!-- Rules text. -->
-
-<div id="rulesBox">
+<div id="rulesBox" data-role="page">
+    <button id="okRules" data-role="button" onclick="window.location = '#game';">
+        OK
+    </button>
     <div>
-        <span class="closeBox" onclick="closeRules();">&#x2573;</span>
         <h3>Blackjack Rules</h3>
 
         <h4>Object</h4>
@@ -323,8 +263,84 @@
             <li>Aces may not be resplit.</li>
         </ul>
     </div>
+    <button id="okRules2" data-role="button" onclick="window.location = '#game';">
+        OK
+    </button>
 </div>
-<audio id="winAudio" src="audio/win.mp3"></audio>
-<audio id="loseAudio" src="audio/lose.mp3"></audio>
+<div id="optionsDialog" data-role="page">
+    <div>
+
+
+        <label for="reshuffleOnDeal">Shuffle On Deal</label>
+        <select name="reshuffleOnDeal" id="reshuffleOnDeal" data-role="flipswitch">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+        </select>
+
+        <label for="numberOfDecks">Number of Decks</label>
+        <input 
+            type="range"
+            id="numberOfDecks"
+            min="1"
+            max="6"
+            step="1"
+            oninput="saveOptions();"
+        >
+
+        <label for="targetNumberCount">Target Number</label>
+        <input 
+            type="range"
+            id="numberOfDecks"
+            min="1"
+            max="6"
+            step="1"
+            oninput="saveOptions();"
+        >
+
+        <fieldset data-role="controlgroup" data-type="horizontal">
+            <legend>Ace Value</legend>
+            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2b" value="standard">
+            <label for="radio-choice-h-2b">One or Eleven</label>
+            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2a" value="kids">
+            <label for="radio-choice-h-2a">One</label>
+        </fieldset>
+
+
+        <label for="split">Show Split</label>
+        <select name="split" id="showSplit" data-role="flipswitch">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+        </select>
+
+        <label for="showDouble">Show Double</label>
+        <select name="showDouble" id="showDouble" data-role="flipswitch">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+        </select>
+
+        <label for="showInsurance">Show Insurance</label>
+        <select name="showInsurance" id="showInsurance" data-role="flipswitch">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+        </select>
+
+        <label for="showBetting">Show Betting</label>
+        <select name="showBetting" id="showBetting" data-role="flipswitch">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+        </select>
+
+        <label for="showCount">Show Insurance</label>
+        <select name="showCount" id="showCount" data-role="flipswitch">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+        </select>
+        <br>
+        <button id="saveOptions" data-role="button" onclick="closeOptions();">
+            Save and Restart
+        </button>
+
+    </div>
+</div>
 
 </body></html>

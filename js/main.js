@@ -88,7 +88,7 @@ function showOptions() {
     setTitle();
 }
 function closeOptions(){
-    gi('optionsDialog').style.visibility = 'hidden';
+    window.location = '#game';
     endRound();
     startRound(); 
 }
@@ -102,9 +102,7 @@ function updateCtrlVisibility(){
         if(b){
             e.style.color = 'black';
         }else{
-            // this was the default background color
-            // that was difficult to locate in the dom
-            e.style.color = '#ffffc0';
+            e.style.color = '#FFFFC0';
         }
         e.onclick = function(){
             e.style.color = 'black';
@@ -439,8 +437,8 @@ function initGame() {
     setTitle();
     // Locate credits and default bet text nodes on the page.
 
-    creditsTextNode = document.getElementById("credits").firstChild;
-    defaultTextNode = document.getElementById("default").firstChild;
+    creditsTextNode = document.getElementById("credits");
+    defaultTextNode = document.getElementById("default");
 
     // Initialize player's credits and bet amount.
 
@@ -659,9 +657,9 @@ function startRound() {
 
     // Enable/disable buttons.
 
-    document.forms.controls.elements.deal.disabled      = true;
-    document.forms.controls.elements.increase.disabled  = true;
-    document.forms.controls.elements.decrease.disabled  = true;
+    gi('deal').disabled      = true;
+    gi('increase').disabled  = true;
+    gi('decrease').disabled  = true;
     DisablePlayButtons();
 
     // If the burn card was reached, start a new deck.
@@ -749,15 +747,15 @@ function playRound() {
     // Enable/disable buttons.
 
     if (canSplit())
-        document.forms.controls.elements.split.disabled = false;
-    document.forms.controls.elements.double.disabled    = false;
-    //document.forms.controls.elements.insurance.disabled = false;
-    document.forms.controls.elements.hit.disabled       = false;
-    document.forms.controls.elements.stand.disabled     = false;
+        gi('split').disabled = false;
+    gi('double').disabled    = false;
+    //gi('insurance').disabled = false;
+    gi('hit').disabled       = false;
+    gi('stand').disabled     = false;
 
     // Highlight the player's hand.
 
-    addClassName(player[0].fieldNode, "activeField");
+    
 }
 
 function offerInsurance() {
@@ -858,8 +856,8 @@ function playerHit() {
     // Enable/disable buttons.
 
     DisablePlayButtons();
-    document.forms.controls.elements.hit.disabled   = false;
-    document.forms.controls.elements.stand.disabled = false;
+    gi('hit').disabled   = false;
+    gi('stand').disabled = false;
 
     // Give the player another card and find total.
 
@@ -897,9 +895,9 @@ function playerHit() {
 
         // Enable/disable buttons.
 
-        document.forms.controls.elements.double.disabled = false;
+        gi('double').disabled = false;
         if (canSplit())
-            document.forms.controls.elements.split.disabled = false;
+            gi('split').disabled = false;
     }
 }
 
@@ -1006,7 +1004,7 @@ function endRound() {
 
     // Enable/disable buttons.
 
-    document.forms.controls.elements.deal.disabled = false;
+    gi('deal').disabled = false;
     EnableBetButtons();
     DisablePlayButtons();
 
@@ -1102,7 +1100,7 @@ function updateBetDisplay(n) {
 
     // Display current credits.
 
-    creditsTextNode.nodeValue = "Credits: " + formatDollar(credits);
+    creditsTextNode.innerHTML = "Credits: " + formatDollar(credits);
 }
 
 function formatDollar(n) {
@@ -1124,7 +1122,7 @@ function changeBet(n) {
 
     defaultBet += n;
     defaultBet = Math.max(Math.min(defaultBet, maxBet), minBet);
-    defaultTextNode.nodeValue = "Default Bet: " + formatDollar(defaultBet);
+    defaultTextNode.innerHTML = "Default Bet: " + formatDollar(defaultBet);
 
     // Reset the increase/decrease buttons.
 
@@ -1136,19 +1134,19 @@ function EnableBetButtons() {
     // Enable the increase and decrease bet buttons provided the current bet
     // amount is within the allowed min/max value.
 
-    document.forms.controls.elements.increase.disabled = (defaultBet >= maxBet);
-    document.forms.controls.elements.decrease.disabled = (defaultBet <= minBet);
+    gi('increase').disabled = (defaultBet >= maxBet);
+    gi('decrease').disabled = (defaultBet <= minBet);
 }
 
 function DisablePlayButtons() {
 
     // Disable all the buttons used for playing a hand.
 
-    document.forms.controls.elements.split.disabled     = true;
-    document.forms.controls.elements.double.disabled    = true;
-    document.forms.controls.elements.insurance.disabled = true;
-    document.forms.controls.elements.hit.disabled       = true;
-    document.forms.controls.elements.stand.disabled     = true;
+    gi('split').disabled     = true;
+    gi('double').disabled    = true;
+    gi('insurance').disabled = true;
+    gi('hit').disabled       = true;
+    gi('stand').disabled     = true;
 }
 
 
