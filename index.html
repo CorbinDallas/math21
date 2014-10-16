@@ -107,7 +107,7 @@
             Show Rules
         </button>
 
-        <button id="options" onclick="window.location = '#optionsDialog';">
+        <button id="options" onclick="window.location = '#optionsDialog';showOptions();">
             Options
         </button>
     </div>
@@ -290,19 +290,19 @@
         <label for="targetNumberCount">Target Number</label>
         <input 
             type="range"
-            id="numberOfDecks"
-            min="1"
-            max="6"
+            id="targetNumber"
+            min="15"
+            max="45"
             step="1"
             oninput="saveOptions();"
         >
 
-        <fieldset data-role="controlgroup" data-type="horizontal">
+        <fieldset data-role="controlgroup" data-type="horizontal" id="aceValue">
             <legend>Ace Value</legend>
-            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2b" value="standard">
-            <label for="radio-choice-h-2b">One or Eleven</label>
-            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2a" value="kids">
-            <label for="radio-choice-h-2a">One</label>
+            <input type="radio" name="aceValue" id="aceValue0" value="standard">
+            <label for="aceValue0">One or Eleven</label>
+            <input type="radio" name="aceValue" id="aceValue1" value="kids">
+            <label for="aceValue1">One</label>
         </fieldset>
 
 

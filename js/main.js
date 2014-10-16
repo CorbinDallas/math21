@@ -62,29 +62,24 @@ function bindInfo(g, keyName){
         }
     };
 }
-function showCounts(){
-    var y = ['numberOfDecks', 'targetNumber'];
-    for(var x = 0; x < y.length; x++){
-        var i = gi(y[x]);
-        var t = gi(y[x] + 'Count');
-        t.innerHTML = i.value;
-    }
-}
 function showOptions() {
     getOptionsFromLocalStorage();
-    gi('optionsDialog').style.visibility = 'visible';
     var o = Object.keys(options);
     for(var x = 0; x < o.length; x++){
         var g = gi(o[x]);
         bindInfo(g, o[x]);
         g.onchange = saveOptions;
-        if(g.type === 'checkbox'){
-            g.checked = options[o[x]];
+        if(g.tagName === 'FIELDSET'){
+            var i = gi(g.id + '0').value === options[o[x]];
+            gi(g.id + (i ? '0' : '1')).checked = true;
+        }else if(g.type === 'range'){
+            $('#optionsDialog').page();
+            $('#' + g.id).val(options[o[x]]);
+            $('#' + g.id).slider('refresh');
         }else{
             g.value = options[o[x]];
         }
     }
-    showCounts();
     setTitle();
 }
 function closeOptions(){
@@ -132,12 +127,16 @@ function saveOptions(){
     var o = Object.keys(options);
     for(var x = 0; x < o.length; x++){
         var g = gi(o[x]);
-        var v = g[g.type === 'checkbox' ? 'checked':'value'];
+        var v;
+        if(g.tagName === 'FIELDSET'){
+            v = gi(g.id + '0').checked ? gi(g.id + '0').value : gi(g.id + '1').value;
+        }else{
+            v = g.value;
+        }
         options[o[x]] = v;
         localStorage.setItem(o[x], v);
     }
     updateCtrlVisibility();
-    showCounts();
     setTitle();
 }
 function getOptionsFromLocalStorage(){
@@ -145,12 +144,7 @@ function getOptionsFromLocalStorage(){
     for(var x = 0; x < o.length; x++){
         var v = localStorage.getItem(o[x]);
         if(v !== null && v !== undefined){
-            var g = gi(o[x]);
-            if(g.type === 'checkbox'){
-                options[o[x]] = v === 'true';
-            }else{
-                options[o[x]] = v;
-            }
+            options[o[x]] = v;
         }
     }
 }
@@ -1009,8 +1003,9 @@ function endRound() {
     DisablePlayButtons();
 
     // Show the dealer's down card and score.
-
-    dealer.cardsNode.firstChild.firstChild.style.visibility = "";
+    if(dealer.cardsNode.firstChild){
+        dealer.cardsNode.firstChild.firstChild.style.visibility = "";
+    }
     d = dealer.getScore();
     if (!dealer.blackjack && d <= options.targetNumber)
         dealer.scoreTextNode.nodeValue = d;
