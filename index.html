@@ -269,73 +269,79 @@
 </div>
 <div id="optionsDialog" data-role="page">
     <div>
-
-
-        <label for="reshuffleOnDeal">Shuffle On Deal</label>
-        <select name="reshuffleOnDeal" id="reshuffleOnDeal" data-role="flipswitch">
-            <option value="off">Off</option>
-            <option value="on">On</option>
-        </select>
-
-        <label for="numberOfDecks">Number of Decks</label>
-        <input 
-            type="range"
-            id="numberOfDecks"
-            min="1"
-            max="6"
-            step="1"
-            oninput="saveOptions();"
-        >
-
-        <label for="targetNumberCount">Target Number</label>
-        <input 
-            type="range"
-            id="targetNumber"
-            min="15"
-            max="45"
-            step="1"
-            oninput="saveOptions();"
-        >
-
-        <fieldset data-role="controlgroup" data-type="horizontal" id="aceValue">
-            <legend>Ace Value</legend>
-            <input type="radio" name="aceValue" id="aceValue0" value="standard">
-            <label for="aceValue0">One or Eleven</label>
-            <input type="radio" name="aceValue" id="aceValue1" value="kids">
-            <label for="aceValue1">One</label>
-        </fieldset>
-
-
-        <label for="split">Show Split</label>
-        <select name="split" id="showSplit" data-role="flipswitch">
-            <option value="off">Off</option>
-            <option value="on">On</option>
-        </select>
-
-        <label for="showDouble">Show Double</label>
-        <select name="showDouble" id="showDouble" data-role="flipswitch">
-            <option value="off">Off</option>
-            <option value="on">On</option>
-        </select>
-
-        <label for="showInsurance">Show Insurance</label>
-        <select name="showInsurance" id="showInsurance" data-role="flipswitch">
-            <option value="off">Off</option>
-            <option value="on">On</option>
-        </select>
-
-        <label for="showBetting">Show Betting</label>
-        <select name="showBetting" id="showBetting" data-role="flipswitch">
-            <option value="off">Off</option>
-            <option value="on">On</option>
-        </select>
-
-        <label for="showCount">Show Insurance</label>
-        <select name="showCount" id="showCount" data-role="flipswitch">
-            <option value="off">Off</option>
-            <option value="on">On</option>
-        </select>
-        <br>
+        <div>
+            <label for="reshuffleOnDeal">Shuffle On Deal</label>
+            <select name="reshuffleOnDeal" id="reshuffleOnDeal" data-role="flipswitch">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+        </div>
+        <div>
+            <label for="numberOfDecks">Number of Decks</label>
+            <input 
+                type="range"
+                id="numberOfDecks"
+                min="1"
+                max="6"
+                step="1"
+                oninput="saveOptions();"
+            >
+        </div>
+        <div>
+            <label for="targetNumberCount">Target Number</label>
+            <input 
+                type="range"
+                id="targetNumber"
+                min="15"
+                max="45"
+                step="1"
+                oninput="saveOptions();"
+            >
+        </div>
+        <div>
+            <fieldset data-role="controlgroup" data-type="horizontal" id="aceValue">
+                <legend>Ace Value</legend>
+                <input type="radio" name="aceValue" id="aceValue0" value="standard">
+                <label for="aceValue0">One or Eleven</label>
+                <input type="radio" name="aceValue" id="aceValue1" value="kids">
+                <label for="aceValue1">One</label>
+            </fieldset>
+        </div>
+        <div>
+            <label for="split">Show Split</label>
+            <select name="split" id="showSplit" data-role="flipswitch">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+        </div>
+        <div>
+            <label for="showDouble">Show Double</label>
+            <select name="showDouble" id="showDouble" data-role="flipswitch">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+        </div>
+        <div>
+            <label for="showInsurance">Show Insurance</label>
+            <select name="showInsurance" id="showInsurance" data-role="flipswitch">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+        </div>
+        <div>
+            <label for="showBetting">Show Betting</label>
+            <select name="showBetting" id="showBetting" data-role="flipswitch">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+        </div>
+        <div>
+            <label for="showCount">Show Card Counts</label>
+            <select name="showCount" id="showCount" data-role="flipswitch">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+        </div>
         <button id="saveOptions" data-role="button" onclick="closeOptions();">
             Save and Restart
         </button>

@@ -26,7 +26,7 @@ function Card(rank, suit) {
 // These are the defaults
 var options = {
     //Reshuffle on deal
-    reshuffleOnDeal: true,
+    reshuffleOnDeal: 'on',
     //No. of decks
     numberOfDecks: 2,
     //Target number (Default: 21)
@@ -34,14 +34,15 @@ var options = {
     //ACE value 1, 11 or best
     aceValue: 'standard',
     //Hide/Show: split, double, insurance, total
-    showSplit: true,
-    showDouble: true,
-    showInsurance: true,
-    showCount: true,
-    showBetting: true
+    showSplit: 'on',
+    showDouble: 'on',
+    showInsurance: 'on',
+    showCount: 'on',
+    showBetting: 'on'
 };
 var optionsInfo = {
     aceValue: "This is advanced stuff man",
+    targetNumber: "This is the value you want your cards to add up to",
     showSplit: "Show Split is REALLY advanced"
 };
 // Preload graphics.
@@ -52,11 +53,11 @@ var cardImg2 = new Image(); cardImg2.src= "img/queen.gif";
 var cardImg3 = new Image(); cardImg3.src= "img/king.gif";
 var infoDiv = document.createElement('div');
 infoDiv.className = 'infoDiv';
-function bindInfo(g, keyName){
-    g.onclick = function(){
+function bindInfo(g, p, keyName){
+    g.onclick = p.onclick = function(){
         if(optionsInfo[keyName]){
             infoDiv.innerHTML = optionsInfo[keyName];
-            g.parentNode.appendChild(infoDiv);
+            p.appendChild(infoDiv);
         }else if(infoDiv.parentNode){
             infoDiv.parentNode.removeChild(infoDiv);
         }
@@ -68,7 +69,7 @@ function showOptions() {
     var procs = [];
     for(var x = 0; x < o.length; x++){
         var g = gi(o[x]);
-        bindInfo(g, o[x]);
+        bindInfo(g, g.parentNode, o[x]);
         g.onchange = saveOptions;
         if(g.tagName === 'FIELDSET'){
             var i = gi(g.id + '0').value === options[o[x]];
@@ -84,7 +85,6 @@ function showOptions() {
             g.value = options[o[x]];
         }
     }
-
     $('#optionsDialog').page();
     procs.forEach(function(i){ i(); });
     setTitle();
@@ -96,12 +96,14 @@ function closeOptions(){
 }
 function updateCtrlVisibility(){
     // maybe hide some controls
-    function showOrHide(b){
-        return b ? 'visible' : 'hidden';
+    function showOrHide(id, b){
+        var e = gi(id);
+        e.style.visibility = b === 'on' ? 'visible' : 'hidden';
+        e.style.display = b === 'on' ? 'inline-block' : 'none';
     }
     function showOrHideColor(id, b){
         var e = gi(id);
-        if(b){
+        if(b === 'on'){
             e.style.color = 'black';
         }else{
             e.style.color = '#FFFFC0';
@@ -110,16 +112,15 @@ function updateCtrlVisibility(){
             e.style.color = 'black';
         };
     }
-    gi('split').style.visibility = showOrHide(options.showSplit);
-    gi('double').style.visibility = showOrHide(options.showDouble);
-    gi('insurance').style.visibility = showOrHide(options.showInsurance);
-    gi('credits').style.visibility = showOrHide(options.showBetting);
-    gi('default').style.visibility = showOrHide(options.showBetting);
-    gi('increase').style.visibility = showOrHide(options.showBetting);
-    gi('decrease').style.visibility = showOrHide(options.showBetting);
-    gi('player0Bet').style.visibility = showOrHide(options.showBetting);
-    gi('player1Bet').style.visibility = showOrHide(options.showBetting);
-    
+    showOrHide('split',options.showSplit);
+    showOrHide('double',options.showDouble);
+    showOrHide('insurance',options.showInsurance);
+    showOrHide('credits',options.showBetting);
+    showOrHide('default',options.showBetting);
+    showOrHide('increase',options.showBetting);
+    showOrHide('decrease',options.showBetting);
+    showOrHide('player0Bet',options.showBetting);
+    showOrHide('player1Bet',options.showBetting);
     showOrHideColor('player0Score', options.showCount);
     showOrHideColor('player1Score', options.showCount);
     showOrHideColor('player2Score', options.showCount);
@@ -143,6 +144,12 @@ function saveOptions(){
         options[o[x]] = v;
         localStorage.setItem(o[x], v);
     }
+    /*  THIS should work, but it does not
+      it's supposed to ma... you can read code.
+    if(parseInt(options.targetNumber, 10) < 21){
+        options.aceValue = 'kids';
+        localStorage.setItem('aceValue', options.aceValue);
+    }*/
     updateCtrlVisibility();
     setTitle();
 }
