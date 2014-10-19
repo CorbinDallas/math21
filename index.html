@@ -31,7 +31,7 @@
     <!-- Main player's area. -->
 
     <div id="player0" class="playingField">
-        <span class="textBox name">Player</span>
+        <span class="textBox name">You</span>
         <span id="player0Score" class="textBox">&nbsp;</span>
         <span id="player0Bet" class="textBox dollars">&nbsp;</span>
         <span id="player0Result" class="textBox result">&nbsp;</span>
@@ -41,7 +41,7 @@
     <!-- Areas for the player's split hands. -->
 
     <div id="player1" class="playingField" style="display:none;">
-        <span class="textBox name">Player</span>
+        <span class="textBox name">You</span>
         <span id="player1Score" class="textBox">&nbsp;</span>
         <span id="player1Bet" class="textBox dollars">&nbsp;</span>
         <span id="player1Result" class="textBox result">&nbsp;</span>
@@ -49,7 +49,7 @@
     </div>
 
     <div id="player2" class="playingField" style="display:none;">
-        <span class="textBox name">Player</span>
+        <span class="textBox name">You</span>
         <span id="player2Score" class="textBox">&nbsp;</span>
         <span id="player2Bet" class="textBox dollars">&nbsp;</span>
         <span id="player2Result" class="textBox result">&nbsp;</span>
@@ -57,7 +57,7 @@
     </div>
 
     <div id="player3" class="playingField" style="display:none;">
-        <span class="textBox name">Player</span>
+        <span class="textBox name">You</span>
         <span id="player3Score" class="textBox">&nbsp;</span>
         <span id="player3Bet" class="textBox dollars">&nbsp;</span>
         <span id="player3Result" class="textBox result">&nbsp;</span>
@@ -72,15 +72,15 @@
         
 
         <button id="deal" data-role="button" onclick="startRound();">
-            Deal
+           Start 
         </button>
 
         <button id="hit" data-role="button" onclick="playerHit();">
-            Hit
+            Get A Card
         </button>
 
         <button id="stand" onclick="playerStand();">
-            Stand
+            Done
         </button>
 
         <button id="split" onclick="playerSplit();">
@@ -104,7 +104,7 @@
         </button>
 
         <button id="rules" onclick="window.location = '#rulesBox';">
-            Show Rules
+            Game Rules
         </button>
 
         <button id="options" onclick="window.location = '#optionsDialog';showOptions();">

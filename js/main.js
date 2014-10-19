@@ -41,9 +41,15 @@ var options = {
     showBetting: 'on'
 };
 var optionsInfo = {
-    aceValue: "This is advanced stuff man",
-    targetNumber: "This is the value you want your cards to add up to",
-    showSplit: "Show Split is REALLY advanced"
+    reshuffleOnDeal: "<br>This option shuffles the card deck after every hand.<br><b>Parents:</b> This option should be used in very advanced stage of learning where the number of decks used is \"One\" and the student can count the cards drawn. This introduces very basic probability.<br><br>",
+    numberOfDecks: "<br>This option is used in conjuction with \"Shuffle on Deal\". Typical size of number of Decks to play with is 4 or 6. <br><b>Parents:</b> Set this option to one for advanced play where you can teach basic probability, memory retention and counting.<br>",
+    targetNumber: "<br>This option is used to change the game from 21 to other numbers within the range of 16 and 45. <b>Note:</b> Choosing a number under 21 sets the Ace value to one. Also note (true 21 affeciandoes), the game gets wonky; At this point it's just proficiency of addition we are working on. Dealer always pulls a card till four less.<br>",
+    aceValue: "<br>This option allows the Ace card to be used as \"eleven & one\" or only as \"one\". <br><b>Parents:</b> Start off with Ace only as one and gradually build up.<br><br>",
+    showSplit: "<br>This option allows card of same denominator to be split into separate hands.<br><b>Parents:<b/> This is semi-advanced, turn it on gradually to keep the excitement and fun going.<br>",
+    showDouble: "<br>This options allows double down.<br><b>Parents:</b> Introduce this concept gradually and under supervision. It is a good advanced concept of probability along with counting<br>",
+    showInsurance: " ",
+    showCount: " ",
+    showBetting: " "
 };
 // Preload graphics.
 
@@ -1080,15 +1086,15 @@ function canSplit() {
 
     // Also, allow tens and face cards to match as a pair.
 
-    if ((player[n].cards[0].rank == "10" ||
-             player[n].cards[0].rank == "J"  ||
-             player[n].cards[0].rank == "Q"  ||
-             player[n].cards[0].rank == "K") &&
-            (player[n].cards[1].rank == "10" ||
-             player[n].cards[1].rank == "J"  ||
-             player[n].cards[1].rank == "Q"  ||
-             player[n].cards[1].rank == "K"))
-        return true;
+   // if ((player[n].cards[0].rank == "10" ||
+   //         player[n].cards[0].rank == "J"  ||
+   //         player[n].cards[0].rank == "Q"  ||
+   //         player[n].cards[0].rank == "K") &&
+   //        (player[n].cards[1].rank == "10" ||
+   //          player[n].cards[1].rank == "J"  ||
+   //          player[n].cards[1].rank == "Q"  ||
+   //          player[n].cards[1].rank == "K"))
+   //     return true;
 
     return false;
 }
